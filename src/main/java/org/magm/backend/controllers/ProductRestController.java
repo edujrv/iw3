@@ -69,7 +69,7 @@ public class ProductRestController extends BaseRestController {
 		try {
 			Product response=productBusiness.add(product);
 			HttpHeaders responseHeaders=new HttpHeaders();
-			responseHeaders.set("location",Constants.URL_PRODUCTS+"/"+response.getId());
+			responseHeaders.set("location",Constants.URL_PRODUCTS+"/"+response.getIdProduct());
 			return new ResponseEntity<>( responseHeaders,HttpStatus.CREATED);
 		} catch (FoundException e) {
 			return new ResponseEntity<>(response.build(HttpStatus.NOT_FOUND, e, e.getMessage()), HttpStatus.NOT_FOUND);

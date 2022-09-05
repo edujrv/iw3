@@ -64,8 +64,8 @@ public class ProductBusiness implements IProductBusiness {
 	@Override
 	public Product add(Product product) throws FoundException, BusinessException {
 		try {
-			load(product.getId());
-			throw FoundException.builder().message("Se encuentró el Producto id=" + product.getId()).build();
+			load(product.getIdProduct());
+			throw FoundException.builder().message("Se encuentró el Producto id=" + product.getIdProduct()).build();
 		} catch (NotFoundException e) {
 		}
 		try {
@@ -85,7 +85,7 @@ public class ProductBusiness implements IProductBusiness {
 
 	@Override
 	public Product update(Product product) throws NotFoundException, BusinessException {
-		load(product.getId());
+		load(product.getIdProduct());
 		try {
 			return productDAO.save(product);
 		} catch (Exception e) {
