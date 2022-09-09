@@ -1,38 +1,31 @@
 package org.magm.backend.model;
 
-import lombok.*;
+import java.io.Serializable;
 
 import javax.persistence.*;
-import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 @Entity
 @Table(name="detalleFactura")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class DetalleFactura implements Serializable {
-
     @Id
-    private long idDetalle;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    @Column
-    private double cantidad;
+    @Column(nullable = false, unique = true)
+    private String codItem;
 
-    @Column
-    private double precio;
-
-    @Column
-    @ManyToOne // TODO: TRABAJO PARA ALFREDO :D
-    @JoinColumn(name = "idProducto", nullable = false)
-    private Product producto;
-
+    @ManyToOne
+    @JoinColumn(name="id_producto", nullable = true)
+    private Product product;
 }
-/*
-*- id long (id relacional)
-- cantidad double
-- producto referencia al modelo ProductCli2
-- precio double
-* */

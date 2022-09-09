@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +21,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name="products")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,7 +31,7 @@ public class Product implements Serializable{
 	private static final long serialVersionUID = 1583413618748026543L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idProduct;
+	private long id;
 	
 	@Column(length = 100, unique = true)
 	private String product;
@@ -35,5 +40,9 @@ public class Product implements Serializable{
 	private boolean stock = true;
 
 	private double price;
+	
+	@ManyToOne
+	@JoinColumn(name="id_category", nullable = true)
+	private Category category;
 
 }

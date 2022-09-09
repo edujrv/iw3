@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DetalleFacturaCli2Repository extends JpaRepository<DetalleFacturaCli2, Long>{
-    public Optional<DetalleFacturaCli2> findOneByCodCli2(String codCli2);
+    public Optional<DetalleFacturaCli2> findOneByCodDetalleFacturaCli2(String codDetalleFacturaCli2);
 }

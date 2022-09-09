@@ -1,11 +1,16 @@
 package org.magm.backend.model;
 
-import lombok.*;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="facturas")
@@ -16,38 +21,27 @@ import java.util.List;
 @AllArgsConstructor
 public class Factura implements Serializable {
 
+    //TODO: VER QUE ONDA CON ESTE SERIALIZABLE
+    private static final long serialVersionUID = 1583413718748026543L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
-    @Column(unique = true)
-    long numero;
+    @Column(nullable = false,unique = true)
+    private long numero;
 
-    @Column
-    private Timestamp fechaEmision;
-
-    @Column
-    private Timestamp fechaVencimiento;
-
-    @Column
+    @Column(columnDefinition = "tinyint default 0", nullable = false)
     private boolean anulada;
 
+    @Column(nullable = false)
+    private Date fechaEmision;
+
+    @Column(nullable = false)
+    private Date fechaVencimiento;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "idDetalle", nullable = false)
-    private List<DetalleFactura> detalles;
+    @JoinColumn(name="id_detalleFactura", nullable = true)
+    private List<DetalleFactura> detallesFactura;
 
 }
-
-/*
-*Factura
-- id long (id relacional)
-- numero long (valor único)
-- fechaEmision
-- fechaVencimiento
-- anulada boolean
-Cada factura tiene un detalle compuesto por Items, cada Item contiene:
-- id long (id relacional)
-- cantidad double
-- producto referencia al modelo ProductCli2
-- precio double
-* */

@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FacturaCli2Repository extends JpaRepository<FacturaCli2, Long>{
-    public Optional<FacturaCli2> findOneByCodCli2(String codCli2);
+public interface FacturaCli2Repository  extends JpaRepository<FacturaCli2, Long>{
+    public Optional<FacturaCli2> findOneByCodFacturaCli2(String codFacturaCli2);
 }
