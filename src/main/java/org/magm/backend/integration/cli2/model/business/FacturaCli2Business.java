@@ -91,6 +91,7 @@ public class FacturaCli2Business implements IFacturaCli2Business{
     @Override
     public FacturaCli2 update(FacturaCli2 factura) throws NotFoundException, BusinessException {
         load(factura.getNumero());
+
         try {
             return facturaDAO.save(factura);
         } catch (Exception e) {
@@ -146,8 +147,6 @@ public class FacturaCli2Business implements IFacturaCli2Business{
     @Override
     public List<FacturaCli2> loadAll() throws NotFoundException, BusinessException {
         List<FacturaCli2> r;
-//  TODO: Creo que todo se puede simplificar en esto solo
-//        return  facturaDAO.findById(id).orElseThrow();
 
         try{
             r=facturaDAO.findAll();
