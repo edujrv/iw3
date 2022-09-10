@@ -12,5 +12,7 @@ public interface FacturaCli2Repository  extends JpaRepository<FacturaCli2, Long>
 
     Optional<FacturaCli2> findFacturaCli2ByNumero(long numero);
 
+    Boolean deleteByNumero(long numero);
+
 
 }

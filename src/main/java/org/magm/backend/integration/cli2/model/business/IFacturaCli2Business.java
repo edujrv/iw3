@@ -4,7 +4,6 @@ import org.magm.backend.integration.cli2.model.FacturaCli2;
 import org.magm.backend.model.business.BusinessException;
 import org.magm.backend.model.business.FoundException;
 import org.magm.backend.model.business.NotFoundException;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public interface IFacturaCli2Business {
 
     void delete(long id) throws NotFoundException, BusinessException;
 
-    List<FacturaCli2> lista_anulada() throws BusinessException;
+    List<FacturaCli2> listaNoAnulada() throws BusinessException;
 
     void anularFactura(long numero) throws NotFoundException, BusinessException;
 
@@ -29,6 +28,8 @@ public interface IFacturaCli2Business {
     public List<FacturaCli2> loadAll() throws NotFoundException, BusinessException;
 
     public FacturaCli2 loadId(long id) throws NotFoundException, BusinessException;
+
+    public void deleteByNumero(long numero) throws NotFoundException, BusinessException;
 }
 
 /*

@@ -106,11 +106,22 @@ FacturaCli2RestController extends BaseRestController {
         }
     }
 
-    @GetMapping(value="/lista-anulada", produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> loadAnuladas() {
+    @GetMapping(value="/lista-no-anulada", produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> loadNoAnuladas() {
         try {
-            return new ResponseEntity<>(facturaCli2Business.lista_anulada(), HttpStatus.OK);
+            return new ResponseEntity<>(facturaCli2Business.listaNoAnulada(), HttpStatus.OK);
         } catch (BusinessException e) {
+            return new ResponseEntity<>(response.build(HttpStatus.INTERNAL_SERVER_ERROR, e, e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping(value="/eliminar-factura/{numero}")
+    public ResponseEntity<?> deleteByNumber(@PathVariable("numero") long numero){
+        try {
+            facturaCli2Business.deleteByNumero(numero);
+            return new ResponseEntity<>( HttpStatus.OK);
+        } catch (BusinessException | NotFoundException e) {
             return new ResponseEntity<>(response.build(HttpStatus.INTERNAL_SERVER_ERROR, e, e.getMessage()),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }

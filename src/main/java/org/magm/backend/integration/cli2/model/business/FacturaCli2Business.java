@@ -90,7 +90,8 @@ public class FacturaCli2Business implements IFacturaCli2Business{
 
     @Override
     public FacturaCli2 update(FacturaCli2 factura) throws NotFoundException, BusinessException {
-        load(factura.getNumero());
+        FacturaCli2 f = load(factura.getNumero());
+        delete(f.getId());
 
         try {
             return facturaDAO.save(factura);
@@ -112,18 +113,29 @@ public class FacturaCli2Business implements IFacturaCli2Business{
     }
 
     @Override
-    public List<FacturaCli2> lista_anulada() throws BusinessException {
+    public void deleteByNumero(long numero) throws NotFoundException, BusinessException {
+        FacturaCli2 f = load(numero);
+        try {
+            facturaDAO.deleteById(f.getId());
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw BusinessException.builder().ex(e).build();
+        }
+    }
+
+    @Override
+    public List<FacturaCli2> listaNoAnulada() throws BusinessException {
         List<FacturaCli2> facturasCLi2;
-        List<FacturaCli2> facturasAnulasCLi2 = new ArrayList<>();
+        List<FacturaCli2> facturasNoAnuladasCLi2 = new ArrayList<>();
         try {
             facturasCLi2 = facturaDAO.findAll();
 
             for (FacturaCli2 facturaCli2 : facturasCLi2) {
-                if (facturaCli2.isAnulada()) {
-                    facturasAnulasCLi2.add(facturaCli2);
+                if (!facturaCli2.isAnulada()) {
+                    facturasNoAnuladasCLi2.add(facturaCli2);
                 }
             }
-            return facturasAnulasCLi2;
+            return facturasNoAnuladasCLi2;
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -154,9 +166,9 @@ public class FacturaCli2Business implements IFacturaCli2Business{
             log.error(e.getMessage(), e);
             throw BusinessException.builder().ex(e).build();
         }
-        if(r.isEmpty()) {
-            throw NotFoundException.builder().message("No se encuentra el listado de facturas").build();
-        }
+//        if(r.isEmpty()) {
+//            throw NotFoundException.builder().message("No se encuentra el listado de facturas").build();
+//        }
         return r;
     }
 }
