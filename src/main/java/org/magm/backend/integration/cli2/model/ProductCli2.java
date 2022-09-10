@@ -33,7 +33,7 @@ public class ProductCli2 extends Product{
 	@Column(nullable = false, unique = true)
 	private String codCli2;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Date expirationDate;
 
 	@ManyToMany(fetch = FetchType.EAGER)

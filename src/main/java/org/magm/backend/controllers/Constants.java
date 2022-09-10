@@ -11,5 +11,6 @@ public final class Constants {
 	public static final String URL_INTEGRATION_CLI2 = URL_INTEGRATION + "/cli2";
 
 	public static final String URL_FACTURAS = URL_INTEGRATION_CLI2 + "/facturas";
+	public static final String URL_DETALLES = URL_INTEGRATION_CLI2 + "/detalles";
 
 }

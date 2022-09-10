@@ -1,9 +1,6 @@
 package org.magm.backend.integration.cli1.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.magm.backend.model.Product;
 

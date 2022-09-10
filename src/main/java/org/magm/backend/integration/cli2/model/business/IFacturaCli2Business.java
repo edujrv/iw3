@@ -22,7 +22,13 @@ public interface IFacturaCli2Business {
 
     List<FacturaCli2> lista_anulada() throws BusinessException;
 
-    void anularFactura(long id) throws NotFoundException, BusinessException;
+    void anularFactura(long numero) throws NotFoundException, BusinessException;
+
+    public void desAnularFactura(long numero) throws NotFoundException, BusinessException;
+
+    public List<FacturaCli2> loadAll() throws NotFoundException, BusinessException;
+
+    public FacturaCli2 loadId(long id) throws NotFoundException, BusinessException;
 }
 
 /*

@@ -25,6 +25,12 @@ public class DetalleFactura implements Serializable {
     @Column(nullable = false, unique = true)
     private String codItem;
 
+    @Column(nullable = false)
+    private double price;
+
+    @Column(nullable = false)
+    private long cantidad;
+
     @ManyToOne
     @JoinColumn(name="id_producto", nullable = true)
     private Product product;
