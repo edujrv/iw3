@@ -1,6 +1,7 @@
 package org.magm.backend.integration.cli2.model.business;
 
 import org.magm.backend.integration.cli2.model.FacturaCli2;
+import org.magm.backend.integration.cli2.model.IFacturaCli2SlimView;
 import org.magm.backend.model.business.BusinessException;
 import org.magm.backend.model.business.FoundException;
 import org.magm.backend.model.business.NotFoundException;
@@ -30,6 +31,10 @@ public interface IFacturaCli2Business {
     public FacturaCli2 loadId(long id) throws NotFoundException, BusinessException;
 
     public void deleteByNumero(long numero) throws NotFoundException, BusinessException;
+
+    List<IFacturaCli2SlimView> listV2() throws BusinessException;
+
+    public List<IFacturaCli2SlimView> listSlim() throws BusinessException;
 }
 
 /*

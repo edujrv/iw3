@@ -39,7 +39,7 @@ public class Product implements Serializable{
 	@Column(columnDefinition = "tinyint default 0")
 	private boolean stock = true;
 
-	private double price;
+	private double price;	//Precio
 	
 	@ManyToOne
 	@JoinColumn(name="id_category", nullable = true)

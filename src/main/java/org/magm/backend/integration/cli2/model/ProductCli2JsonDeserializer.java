@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import org.magm.backend.integration.cli1.model.ProductCli1;
 import org.magm.backend.model.business.BusinessException;
 import org.magm.backend.model.business.ICategoryBusiness;
 import org.magm.backend.model.business.NotFoundException;

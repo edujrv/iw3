@@ -1,17 +1,12 @@
 package org.magm.backend.integration.cli2.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import org.magm.backend.model.DetalleFactura;
 import org.magm.backend.model.Factura;
 
 import lombok.AllArgsConstructor;
@@ -33,4 +28,9 @@ public class FacturaCli2 extends Factura {
     @Column(nullable = false, unique = true)
     private String codFacturaCli2;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "cli2_factura_component",
+            joinColumns = { @JoinColumn(name = "id_factura", referencedColumnName = "id_factura") },
+            inverseJoinColumns = {	@JoinColumn(name = "id_component", referencedColumnName = "id") })
+    private Set<ComponentCli2> components;
 }

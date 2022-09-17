@@ -42,6 +42,10 @@ public class DetalleFacturaCli2Business implements IDetalleFacturaCli2Business{
 
     @Override
     public DetalleFacturaCli2 add(DetalleFacturaCli2 detalleFactura) throws FoundException, BusinessException {
+        /*
+        double price = 0;
+        price = detalleFactura.getProduct().getPrice() * detalleFactura.getCantidad();
+        */
         try {
             load(detalleFactura.getId());
             throw FoundException.builder().message("Se encontró el detalle id=" + detalleFactura.getId()).build();

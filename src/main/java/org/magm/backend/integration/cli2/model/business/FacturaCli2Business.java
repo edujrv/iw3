@@ -2,8 +2,10 @@ package org.magm.backend.integration.cli2.model.business;
 
 import lombok.extern.slf4j.Slf4j;
 import org.magm.backend.integration.cli2.model.FacturaCli2;
+import org.magm.backend.integration.cli2.model.IFacturaCli2SlimView;
 import org.magm.backend.integration.cli2.model.persistence.FacturaCli2Repository;
 import org.magm.backend.integration.cli2.model.persistence.ProductCli2Respository;
+import org.magm.backend.model.DetalleFactura;
 import org.magm.backend.model.business.BusinessException;
 import org.magm.backend.model.business.FoundException;
 import org.magm.backend.model.business.NotFoundException;
@@ -69,6 +71,20 @@ public class FacturaCli2Business implements IFacturaCli2Business{
 
     @Override
     public FacturaCli2 add(FacturaCli2 factura) throws FoundException, BusinessException {
+
+        double price = 0;
+        //
+        for (DetalleFactura item : factura.getDetallesFactura()) {
+            price += item.getCantidad() * item.getPrice();
+        }
+        /*
+        for (DetalleFactura item : factura.getDetallesFactura()) {
+            price += item.getPrice();
+        }
+        */
+
+        factura.setPrice(price);
+
         try {
             load(factura.getNumero());
             throw FoundException.builder().message("Se encontró la factura id=" + factura.getId()).build();
@@ -125,17 +141,11 @@ public class FacturaCli2Business implements IFacturaCli2Business{
 
     @Override
     public List<FacturaCli2> listaNoAnulada() throws BusinessException {
-        List<FacturaCli2> facturasCLi2;
-        List<FacturaCli2> facturasNoAnuladasCLi2 = new ArrayList<>();
-        try {
-            facturasCLi2 = facturaDAO.findAll();
+//        List<FacturaCli2> facturasCLi2;
 
-            for (FacturaCli2 facturaCli2 : facturasCLi2) {
-                if (!facturaCli2.isAnulada()) {
-                    facturasNoAnuladasCLi2.add(facturaCli2);
-                }
-            }
-            return facturasNoAnuladasCLi2;
+        try {
+//            facturasCLi2 = facturaDAO.findFacturaCli2ByAnuladaIsFalse();
+            return facturaDAO.findFacturaCli2ByAnuladaIsFalse();
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -170,5 +180,24 @@ public class FacturaCli2Business implements IFacturaCli2Business{
 //            throw NotFoundException.builder().message("No se encuentra el listado de facturas").build();
 //        }
         return r;
+    }
+
+    @Override
+    public List<IFacturaCli2SlimView> listV2() throws BusinessException{
+        List<IFacturaCli2SlimView> facturaCli2List;
+
+        try{
+            facturaCli2List = facturaDAO.findAllV2();
+        }catch (Exception e){
+            log.error(e.getMessage(), e);
+            throw BusinessException.builder().ex(e).build();
+        }
+
+        return facturaCli2List;
+    }
+
+    @Override
+    public List<IFacturaCli2SlimView> listSlim() throws BusinessException {
+        return null;
     }
 }

@@ -41,7 +41,7 @@ public class Factura implements Serializable {
     private Date fechaVencimiento;
 
     @Column(nullable = false)
-    private double price;
+    private double price;   //Total
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="id_factura", nullable = true)

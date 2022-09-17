@@ -26,7 +26,7 @@ public class DetalleFactura implements Serializable {
     private String codItem;
 
     @Column(nullable = false)
-    private double price;
+    private double price; //Subtotal
 
     @Column(nullable = false)
     private long cantidad;

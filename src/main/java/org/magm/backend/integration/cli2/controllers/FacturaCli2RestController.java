@@ -1,13 +1,21 @@
 package org.magm.backend.integration.cli2.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.magm.backend.controllers.BaseRestController;
 import org.magm.backend.controllers.Constants;
 import org.magm.backend.integration.cli2.model.FacturaCli2;
+import org.magm.backend.integration.cli2.model.FacturaCli2SlimV1JsonSerializer;
+import org.magm.backend.integration.cli2.model.FacturaCli2SlimV2JsonSerializer;
+import org.magm.backend.integration.cli2.model.IFacturaCli2SlimView;
+import org.magm.backend.integration.cli2.model.business.FacturaCli2Business;
 import org.magm.backend.integration.cli2.model.business.IFacturaCli2Business;
+import org.magm.backend.model.Factura;
 import org.magm.backend.model.business.BusinessException;
 import org.magm.backend.model.business.FoundException;
 import org.magm.backend.model.business.NotFoundException;
 import org.magm.backend.util.IStandartResponseBusiness;
+import org.magm.backend.util.JsonUtiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
@@ -16,11 +24,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Profile({"cli2","mysqldev"})
 @RestController
 @RequestMapping(Constants.URL_FACTURAS)
-public class
-FacturaCli2RestController extends BaseRestController {
+public class FacturaCli2RestController extends BaseRestController {
 
     @Autowired
     private IFacturaCli2Business facturaCli2Business;
@@ -95,14 +104,34 @@ FacturaCli2RestController extends BaseRestController {
     }
 
     @GetMapping(value="/lista", produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> loadAll() {
+    public ResponseEntity<?> loadAll(
+            @RequestParam(name = "slim", required = false, defaultValue = "v0") String slimVersion) {
         try {
-            return new ResponseEntity<>(facturaCli2Business.loadAll(), HttpStatus.OK);
+            StdSerializer<FacturaCli2> ser = null;
+
+            if(slimVersion.equalsIgnoreCase("v1")){
+                ser = new FacturaCli2SlimV1JsonSerializer(FacturaCli2.class, false);
+            }
+            else if(slimVersion.equalsIgnoreCase("v2")){
+                ser = new FacturaCli2SlimV2JsonSerializer(FacturaCli2.class, false);
+            }else {
+                ser = new FacturaCli2SlimV1JsonSerializer(FacturaCli2.class, false);
+            }
+
+            String result = JsonUtiles.getObjectMapper(FacturaCli2.class, ser, null)
+                    .writeValueAsString(facturaCli2Business.loadAll());
+
+//            String result = JsonUtiles.getObjectMapper(FacturaCli2.class, ser, null)
+//                    .writeValueAsString(facturaCli2List);
+
+                return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (BusinessException e) {
             return new ResponseEntity<>(response.build(HttpStatus.INTERNAL_SERVER_ERROR, e, e.getMessage()),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(response.build(HttpStatus.NOT_FOUND, e, e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 
