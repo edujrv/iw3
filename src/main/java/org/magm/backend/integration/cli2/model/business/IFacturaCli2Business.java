@@ -22,9 +22,9 @@ public interface IFacturaCli2Business {
 
     List<FacturaCli2> listaNoAnulada() throws BusinessException;
 
-    void anularFactura(long numero) throws NotFoundException, BusinessException;
+    void anularFactura(long id) throws NotFoundException, BusinessException;
 
-    public void desAnularFactura(long numero) throws NotFoundException, BusinessException;
+    public void desAnularFactura(long id) throws NotFoundException, BusinessException;
 
     public List<FacturaCli2> loadAll() throws NotFoundException, BusinessException;
 
@@ -35,6 +35,7 @@ public interface IFacturaCli2Business {
     List<IFacturaCli2SlimView> listV2() throws BusinessException;
 
     public List<IFacturaCli2SlimView> listSlim() throws BusinessException;
+    public List<Integer> idFacturaPorProducto (long id) throws BusinessException;
 }
 
 /*

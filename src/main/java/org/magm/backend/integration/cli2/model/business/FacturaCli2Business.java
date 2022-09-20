@@ -153,17 +153,37 @@ public class FacturaCli2Business implements IFacturaCli2Business{
         }
     }
     @Override
-    public void anularFactura(long numero) throws NotFoundException, BusinessException {
-        FacturaCli2 factura = facturaDAO.findFacturaCli2ByNumero(numero).orElseThrow();
+    public void anularFactura(long id) throws NotFoundException, BusinessException {
+
+        try{
+            facturaDAO.anularfactura(id);
+        }catch (Exception e){
+            log.error(e.getMessage(), e);
+            throw BusinessException.builder().ex(e).build();
+        }
+
+        /*
+        FacturaCli2 factura = facturaDAO.findFacturaCli2ByNumero(id).orElseThrow();
         factura.setAnulada(true);
         update(factura);
+        */
+
     }
 
     @Override
-    public void desAnularFactura(long numero) throws NotFoundException, BusinessException {
+    public void desAnularFactura(long id) throws NotFoundException, BusinessException {
+
+        try{
+            facturaDAO.desAnularFactura(id);
+        }catch (Exception e){
+            log.error(e.getMessage(), e);
+            throw BusinessException.builder().ex(e).build();
+        }
+        /*
         FacturaCli2 factura = facturaDAO.findFacturaCli2ByNumero(numero).orElseThrow();
         factura.setAnulada(false);
         update(factura);
+         */
     }
 
     @Override
@@ -194,6 +214,20 @@ public class FacturaCli2Business implements IFacturaCli2Business{
         }
 
         return facturaCli2List;
+    }
+
+    @Override
+    public List<Integer> idFacturaPorProducto (long id) throws BusinessException{
+        List<Integer> ids;
+
+        try{
+            ids = facturaDAO.idDeFacturasdeUnProducto(id);
+        }catch (Exception e){
+            log.error(e.getMessage(), e);
+            throw BusinessException.builder().ex(e).build();
+        }
+
+        return ids;
     }
 
     @Override

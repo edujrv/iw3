@@ -65,10 +65,10 @@ public class FacturaCli2RestController extends BaseRestController {
         }
     }
 
-    @PutMapping(value = "/anular-factura/{numero}")
-    public ResponseEntity<?> anularFactura(@PathVariable("numero") long numero) {
+    @PutMapping(value = "/anular-factura/{id}")
+    public ResponseEntity<?> anularFactura(@PathVariable("id") long id) {
         try {
-            facturaCli2Business.anularFactura(numero);
+            facturaCli2Business.anularFactura(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (BusinessException e) {
             return new ResponseEntity<>(response.build(HttpStatus.INTERNAL_SERVER_ERROR, e, e.getMessage()),
@@ -78,10 +78,10 @@ public class FacturaCli2RestController extends BaseRestController {
         }
     }
 
-    @PutMapping(value = "/desanular-factura/{numero}")
-    public ResponseEntity<?> desanularFactura(@PathVariable("numero") long numero) {
+    @PutMapping(value = "/desanular-factura/{id}")
+    public ResponseEntity<?> desanularFactura(@PathVariable("id") long id) {
         try {
-            facturaCli2Business.desAnularFactura(numero);
+            facturaCli2Business.desAnularFactura(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (BusinessException e) {
             return new ResponseEntity<>(response.build(HttpStatus.INTERNAL_SERVER_ERROR, e, e.getMessage()),
@@ -155,5 +155,16 @@ public class FacturaCli2RestController extends BaseRestController {
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping(value="/lista-id/{idProducto}", produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> listarID(@PathVariable(name="idProducto") long idProducto) {
+        try {
+            return new ResponseEntity<>(facturaCli2Business.idFacturaPorProducto(idProducto), HttpStatus.OK);
+        } catch (BusinessException e) {
+            return new ResponseEntity<>(response.build(HttpStatus.INTERNAL_SERVER_ERROR, e, e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }
