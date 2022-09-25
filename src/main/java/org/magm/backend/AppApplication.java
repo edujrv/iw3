@@ -21,15 +21,15 @@ public class AppApplication extends SpringBootServletInitializer implements Comm
 	@Value("${spring.profiles.active}")
 	private String profile;
 
-	@Autowired
-	private ProductRepository productDAO;
+//	@Autowired
+//	private ProductRepository productDAO;
 
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Perfil Activo: {}", profile);
 
-		log.info("Cantidad de productos de la categoría id=1: {}", productDAO.countProductsByCategory(1));
-		log.info("Set stock=true producto id que no existe, resultado={}", productDAO.setStock(true, 333));
+//		log.info("Cantidad de productos de la categoría id=1: {}", productDAO.countProductsByCategory(1));
+//		log.info("Set stock=true producto id que no existe, resultado={}", productDAO.setStock(true, 333));
 		
 		
 
