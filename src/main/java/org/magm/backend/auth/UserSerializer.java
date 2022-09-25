@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.magm.backend.auth.User;
 import org.magm.backend.auth.filters.AuthConstants;
+import org.magm.backend.integration.cli2.model.DetalleFacturaCli2JsonSerializer;
+import org.magm.backend.model.DetalleFactura;
+import org.magm.backend.util.JsonUtiles;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +26,20 @@ public class UserSerializer extends StdSerializer<User> {
     @Override
     public void serialize(User value, JsonGenerator gen, SerializerProvider provider) throws IOException {
 
+        gen.writeStartObject();
+        gen.writeStringField("User", value.getUsername());
+
+
+        String componentsStr = JsonUtiles
+                .getObjectMapper(Role.class, new RoleSerializer(Role.class, false), null)
+                .writeValueAsString(value.getRoles());
+        gen.writeFieldName("roles");
+        gen.writeRawValue(componentsStr);
+
+
+        gen.writeStringField("EMail", value.getEmail());
+
+
         String token = JWT.create().withSubject(value.getUsername())
                 .withClaim("internalId", value.getIdUser())
                 .withClaim("roles", new ArrayList<String>(value.getAuthoritiesStr()))
@@ -31,10 +48,7 @@ public class UserSerializer extends StdSerializer<User> {
                 .withExpiresAt(new Date(System.currentTimeMillis() + AuthConstants.EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(AuthConstants.SECRET.getBytes()));
 
-        gen.writeStartObject();
-        gen.writeStringField("User", value.getUsername());
-        gen.writeObjectField("Roles", value.getRoles());
-        gen.writeStringField("EMail", value.getEmail());
+
         gen.writeStringField("Authtoken", token);
         gen.writeEndObject();
 
