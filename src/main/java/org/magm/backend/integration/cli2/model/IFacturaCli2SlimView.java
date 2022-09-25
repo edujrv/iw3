@@ -11,7 +11,7 @@ public interface IFacturaCli2SlimView {
 
     interface DetallesFactura{
         long getId();
-//        String getCodItem();
+//        String getCod_item();
         double getPrice();
 //        long getCantidad();
         ProductCli2 getProduct();

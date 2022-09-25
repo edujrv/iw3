@@ -36,6 +36,10 @@ public interface IFacturaCli2Business {
 
     public List<IFacturaCli2SlimView> listSlim() throws BusinessException;
     public List<Integer> idFacturaPorProducto (long id) throws BusinessException;
+
+    public IFacturaCli2SlimView findOneByNumeroV2(long numero) throws BusinessException;
+
+
 }
 
 /*

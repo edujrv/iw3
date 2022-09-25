@@ -28,6 +28,11 @@ public interface FacturaCli2Repository  extends JpaRepository<FacturaCli2, Long>
     @Query(value = " select df.* from facturas f inner join detalle_factura df on f.id = df.id_factura", nativeQuery = true)
     public List<IFacturaCli2SlimView> findAllV2();
 
+    @Query(value = " select * from facturas f inner join detalle_factura df on f.id = df.id_factura WHERE f.numero = ?", nativeQuery = true)
+    public IFacturaCli2SlimView findOneByNumeroV2(long numero);
+
+    IFacturaCli2SlimView findByNumero(long numero);
+
     @Transactional
     @Modifying
     @Query(value = "UPDATE facturas SET anulada = true WHERE id = ?", nativeQuery = true)
@@ -42,9 +47,5 @@ public interface FacturaCli2Repository  extends JpaRepository<FacturaCli2, Long>
 //            "inner join products p on d.id_producto=p.id where p.id=?", nativeQuery = true)
     @Query(value = "SELECT id_factura FROM detalle_factura WHERE id_producto = ?", nativeQuery = true)
     public List<Integer> idDeFacturasdeUnProducto(long idProduct);
-
-
-
-
 
 }

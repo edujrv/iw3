@@ -92,9 +92,17 @@ public class FacturaCli2RestController extends BaseRestController {
     }
 
     @GetMapping(value="/{numero}", produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> load(@PathVariable("numero") long numero) {
+    public ResponseEntity<?> load(@PathVariable("numero") long numero,
+                                  @RequestParam(name = "slim", required = false, defaultValue = "v0") String slimVersion) {
         try {
-            return new ResponseEntity<>(facturaCli2Business.load(numero), HttpStatus.OK);
+            if(slimVersion.equalsIgnoreCase("v1")){
+                return new ResponseEntity<>(facturaCli2Business.load(numero), HttpStatus.OK);
+            } else if(slimVersion.equalsIgnoreCase("v2")){
+                return new ResponseEntity<>(facturaCli2Business.findOneByNumeroV2(numero),HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(facturaCli2Business.load(numero), HttpStatus.OK);
+            }
+
         } catch (BusinessException e) {
             return new ResponseEntity<>(response.build(HttpStatus.INTERNAL_SERVER_ERROR, e, e.getMessage()),
                     HttpStatus.INTERNAL_SERVER_ERROR);

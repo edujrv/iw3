@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.magm.backend.integration.cli2.model.FacturaCli2;
 import org.magm.backend.integration.cli2.model.IFacturaCli2SlimView;
 import org.magm.backend.integration.cli2.model.persistence.FacturaCli2Repository;
-import org.magm.backend.integration.cli2.model.persistence.ProductCli2Respository;
 import org.magm.backend.model.DetalleFactura;
 import org.magm.backend.model.business.BusinessException;
 import org.magm.backend.model.business.FoundException;
@@ -12,7 +11,6 @@ import org.magm.backend.model.business.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -228,6 +226,15 @@ public class FacturaCli2Business implements IFacturaCli2Business{
         }
 
         return ids;
+    }
+
+    @Override
+    public IFacturaCli2SlimView findOneByNumeroV2(long numero) throws BusinessException {
+        try {
+            return facturaDAO.findByNumero(numero);
+        }catch (Exception e){
+            throw BusinessException.builder().ex(e).build();
+        }
     }
 
     @Override
