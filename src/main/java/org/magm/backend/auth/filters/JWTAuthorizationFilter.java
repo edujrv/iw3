@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.magm.backend.auth.Role;
 import org.magm.backend.auth.User;
+import org.magm.backend.controllers.Constants;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -60,43 +61,48 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	// Extraer el token JWT de la cabecera y lo intenta validar
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, boolean byHeader) {
 		// Recordar que el header inicia con alguna cadena, por ejemplo: 'Bearer '
+
+
 		String token = byHeader
 				? request.getHeader(AuthConstants.AUTH_HEADER_NAME).replace(AuthConstants.TOKEN_PREFIX, "")
 				: request.getParameter(AuthConstants.AUTH_PARAM_NAME);
-
+		
 		if (token != null) {
-			// Parseamos el token usando la librería
-			DecodedJWT jwt = JWT.require(Algorithm.HMAC512(AuthConstants.SECRET.getBytes())).build().verify(token);
-
-			log.trace("Token recibido por '{}'", byHeader ? "header" : "query param");
-			log.trace("Usuario logueado: " + jwt.getSubject());
-			log.trace("Roles: " + jwt.getClaim("roles"));
-			log.trace("Custom JWT Version: " + jwt.getClaim("version").asString());
-
-			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-			Set<Role> roles = new HashSet<Role>();
 			try {
-				@SuppressWarnings("unchecked")
-				List<String> rolesStr = (List<String>) jwt.getClaim("roles").as(List.class);
+				DecodedJWT jwt = JWT.require(Algorithm.HMAC512(AuthConstants.SECRET.getBytes())).build().verify(token);
 
-				authorities = rolesStr.stream().map(role -> new SimpleGrantedAuthority(role))
-						.collect(Collectors.toList());
-				roles = rolesStr.stream().map(role -> new Role(role, 0, role)).collect(Collectors.toSet());
-			} catch (Exception e) {
-			}
+				// Parseamos el token usando la librería
+				log.trace("Token recibido por '{}'", byHeader ? "header" : "query param");
+				log.trace("Usuario logueado: " + jwt.getSubject());
+				log.trace("Roles: " + jwt.getClaim("roles"));
+				log.trace("Custom JWT Version: " + jwt.getClaim("version").asString());
 
-			String username = jwt.getSubject();
+				List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+				Set<Role> roles = new HashSet<Role>();
+				try {
+					@SuppressWarnings("unchecked")
+					List<String> rolesStr = (List<String>) jwt.getClaim("roles").as(List.class);
 
-			if (username != null) {
-				User user = new User();
-				user.setIdUser(jwt.getClaim("internalId").asLong());
-				user.setUsername(username);
-				user.setRoles(roles);
-				user.setEmail(jwt.getClaim("email").asString());
-				return new UsernamePasswordAuthenticationToken(user, null, authorities);
-			}
-			return null;
-		}
+					authorities = rolesStr.stream().map(role -> new SimpleGrantedAuthority(role))
+							.collect(Collectors.toList());
+					roles = rolesStr.stream().map(role -> new Role(role, 0, role)).collect(Collectors.toSet());
+				} catch (Exception e) {
+
+				}
+
+				String username = jwt.getSubject();
+
+				if (username != null) {
+					User user = new User();
+					user.setIdUser(jwt.getClaim("internalId").asLong());
+					user.setUsername(username);
+					user.setRoles(roles);
+					user.setEmail(jwt.getClaim("email").asString());
+					return new UsernamePasswordAuthenticationToken(user, null, authorities);
+				}
+				return null;
+		} catch (Exception e){}
+	}
 		return null;
 	}
 }
