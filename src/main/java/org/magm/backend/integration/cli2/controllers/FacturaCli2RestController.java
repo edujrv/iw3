@@ -13,6 +13,7 @@ import org.magm.backend.integration.cli2.model.business.IFacturaCli2Business;
 import org.magm.backend.model.Factura;
 import org.magm.backend.model.business.BusinessException;
 import org.magm.backend.model.business.FoundException;
+import org.magm.backend.model.business.IAuditoriaBusiness;
 import org.magm.backend.model.business.NotFoundException;
 import org.magm.backend.util.IStandartResponseBusiness;
 import org.magm.backend.util.JsonUtiles;
@@ -33,6 +34,9 @@ public class FacturaCli2RestController extends BaseRestController {
 
     @Autowired
     private IFacturaCli2Business facturaCli2Business;
+
+    @Autowired
+    private IAuditoriaBusiness auditoriaBusiness;
 
     @Autowired
     private IStandartResponseBusiness response;

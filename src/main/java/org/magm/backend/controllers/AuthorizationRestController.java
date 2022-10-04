@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.magm.backend.auth.IUserBusiness;
 import org.magm.backend.auth.User;
+import org.magm.backend.model.business.BusinessException;
+import org.magm.backend.model.business.IAuditoriaBusiness;
+import org.magm.backend.util.IStandartResponseBusiness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +25,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(Constants.URL_AUTHORIZATION)
 public class AuthorizationRestController extends BaseRestController {
 
+	@Autowired
+	private IAuditoriaBusiness auditoriaBusiness;
+
+	@Autowired
+	private IStandartResponseBusiness response;
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/admin")
 	public ResponseEntity<String> onlyAdmin() {
 		return new ResponseEntity<String>("Servicio admin", HttpStatus.OK);
+	}
+
+	@PreAuthorize("hasRole('ROLE_VIEW')")
+	@GetMapping("/auditoria")
+	public ResponseEntity<?> auditoria(){
+		try {
+			return new ResponseEntity<>(auditoriaBusiness.list(), HttpStatus.OK);
+		} catch (BusinessException e) {
+			return new ResponseEntity<>(response.build(HttpStatus.INTERNAL_SERVER_ERROR, e, e.getMessage()),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
