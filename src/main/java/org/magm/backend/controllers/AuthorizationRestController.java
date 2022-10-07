@@ -5,11 +5,18 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.magm.backend.auth.IUserBusiness;
 import org.magm.backend.auth.User;
+import org.magm.backend.integration.cli2.model.FacturaCli2;
+import org.magm.backend.integration.cli2.model.FacturaCli2SlimV1JsonSerializer;
+import org.magm.backend.model.AuditSerializer;
+import org.magm.backend.model.Auditoria;
 import org.magm.backend.model.business.BusinessException;
 import org.magm.backend.model.business.IAuditoriaBusiness;
 import org.magm.backend.util.IStandartResponseBusiness;
+import org.magm.backend.util.JsonUtiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,10 +48,20 @@ public class AuthorizationRestController extends BaseRestController {
 	@GetMapping("/auditoria")
 	public ResponseEntity<?> auditoria(){
 		try {
-			return new ResponseEntity<>(auditoriaBusiness.list(), HttpStatus.OK);
+			StdSerializer<Auditoria> ser = null;
+
+			ser = new AuditSerializer(Auditoria.class, false);
+
+			String result = JsonUtiles.getObjectMapper(Auditoria.class, ser, null)
+					.writeValueAsString(auditoriaBusiness.list(getUserLogged().getUsername()));
+
+			return new ResponseEntity<>(result, HttpStatus.OK);
+//			return new ResponseEntity<>(auditoriaBusiness.list(getUserLogged().getUsername()), HttpStatus.OK);
 		} catch (BusinessException e) {
 			return new ResponseEntity<>(response.build(HttpStatus.INTERNAL_SERVER_ERROR, e, e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
 		}
 	}
 

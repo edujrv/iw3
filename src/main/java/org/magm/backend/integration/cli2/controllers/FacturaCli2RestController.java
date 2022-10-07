@@ -61,7 +61,6 @@ public class FacturaCli2RestController extends BaseRestController {
     public ResponseEntity<?> update(@RequestBody FacturaCli2 factura) {
         try {
             facturaCli2Business.update(factura);
-//            facturaCli2Business.delete(facturaCli2Business.load(factura.getNumero()).getId());
 
             auditoriaBusiness.add(factura.getId(),getUserLogged().getUsername(),factura.getFechaEmision(),"MODIFICADA");
             return new ResponseEntity<>(HttpStatus.OK);

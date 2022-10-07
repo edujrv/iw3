@@ -34,9 +34,9 @@ public class AuditoriaBusiness implements IAuditoriaBusiness{
     }
 
     @Override
-    public List<Auditoria> list() throws BusinessException{
+    public List<Auditoria> list(String user) throws BusinessException{
         try {
-            return auditoriaDAO.auditoriaUsuario("UsuarioXdefecto1");
+            return auditoriaDAO.auditoriaUsuario(user);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw BusinessException.builder().ex(e).build();

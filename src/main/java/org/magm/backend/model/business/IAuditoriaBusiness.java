@@ -10,7 +10,7 @@ public interface IAuditoriaBusiness {
 
     public Auditoria load(long id) throws NotFoundException, BusinessException ;
 
-    public List<Auditoria> list() throws BusinessException;
+    public List<Auditoria> list(String user) throws BusinessException;
 
     Auditoria add(long id, String user, Date fecha, String operacion) throws FoundException, BusinessException;
 }
