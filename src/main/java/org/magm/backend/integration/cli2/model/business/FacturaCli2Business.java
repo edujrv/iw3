@@ -1,6 +1,7 @@
 package org.magm.backend.integration.cli2.model.business;
 
 import lombok.extern.slf4j.Slf4j;
+import org.magm.backend.controllers.BaseRestController;
 import org.magm.backend.integration.cli2.model.FacturaCli2;
 import org.magm.backend.integration.cli2.model.IFacturaCli2SlimView;
 import org.magm.backend.integration.cli2.model.persistence.FacturaCli2Repository;
@@ -19,7 +20,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class FacturaCli2Business implements IFacturaCli2Business{
+public class FacturaCli2Business extends BaseRestController implements IFacturaCli2Business{
 
     @Autowired(required = false)
     private FacturaCli2Repository facturaDAO;
@@ -102,7 +103,8 @@ public class FacturaCli2Business implements IFacturaCli2Business{
 
         try {
             FacturaCli2 facturaCli2 = facturaDAO.save(factura);
-            auditoriaDAO.add(facturaCli2.getId(),"UsuarioXdefecto1", factura.getFechaEmision(), "ALTA");
+            //String user = getUserLogged().getAuthorities().toString();
+            //auditoriaDAO.add(facturaCli2.getId(),user, factura.getFechaEmision(), "ALTA");
             return facturaCli2;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -113,13 +115,27 @@ public class FacturaCli2Business implements IFacturaCli2Business{
 
     @Override
     public FacturaCli2 update(FacturaCli2 factura) throws NotFoundException, BusinessException {
+
+//        load(factura.getNumero());
+
+
         FacturaCli2 facturaCli2 = load(factura.getNumero());
         delete(facturaCli2.getId());
+        /*
+            try {
+                return facturaDAO.save(factura);
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+                throw BusinessException.builder().ex(e).build();
+            }
+        */
 
         try {
-            FacturaCli2 facturaCli21Guardar = facturaDAO.save(factura);
-            auditoriaDAO.add(facturaCli21Guardar.getId(),"UsuarioXdefecto1", factura.getFechaEmision(), "MODIFICACION");
-            return facturaCli21Guardar;
+            return facturaDAO.save(factura);
+            //FacturaCli2 facturaCli21Guardar = facturaDAO.save(factura);
+            //String user = getUserLogged().getAuthorities().toString();
+            //auditoriaDAO.add(facturaCli21Guardar.getId(),user, factura.getFechaEmision(), "MODIFICACION");
+            //return facturaCli21Guardar;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw BusinessException.builder().ex(e).build();
@@ -129,9 +145,21 @@ public class FacturaCli2Business implements IFacturaCli2Business{
     @Override
     public void delete(long id) throws NotFoundException, BusinessException {
         FacturaCli2 factura = loadId(id);
+        /*
+
+            loadId(id);
+            try {
+                facturaDAO.deleteById(id);
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+                throw BusinessException.builder().ex(e).build();
+            }
+
+        */
         try {
             facturaDAO.deleteById(id);
-            auditoriaDAO.add(factura.getId(),"UsuarioXdefecto1", factura.getFechaEmision(), "BAJA");
+            //String user = getUserLogged().getAuthorities().toString();
+            //auditoriaDAO.add(factura.getId(),user, factura.getFechaEmision(), "BAJA");
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw BusinessException.builder().ex(e).build();
@@ -141,9 +169,19 @@ public class FacturaCli2Business implements IFacturaCli2Business{
     @Override
     public void deleteByNumero(long numero) throws NotFoundException, BusinessException {
         FacturaCli2 factura = load(numero);
+        /*
+            FacturaCli2 f = load(numero);
+            try {
+                facturaDAO.deleteById(f.getId());
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+                throw BusinessException.builder().ex(e).build();
+            }
+        */
         try {
             facturaDAO.deleteById(factura.getId());
-            auditoriaDAO.add(factura.getId(),"UsuarioXdefecto1", factura.getFechaEmision(), "BAJA");
+            //String user = getUserLogged().getAuthorities().toString();
+            //auditoriaDAO.add(factura.getId(),user, factura.getFechaEmision(), "BAJA");
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw BusinessException.builder().ex(e).build();

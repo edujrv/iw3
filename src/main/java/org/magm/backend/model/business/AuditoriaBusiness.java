@@ -44,11 +44,11 @@ public class AuditoriaBusiness implements IAuditoriaBusiness{
     }
 
     @Override
-    public Auditoria add(long id, String user, Date fecha, String operacion) throws FoundException, BusinessException {
+    public Auditoria add(long numero, String user, Date fecha, String operacion) throws FoundException, BusinessException {
 
 
         Auditoria auditoria = Auditoria.builder()
-                                        .id(id)
+                                        .id_factura(numero)
                                         .user(user)
                                         .fecha(fecha)
                                         .operacion(operacion)

@@ -20,7 +20,7 @@ public class Auditoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false,unique = false)
     private long id_factura;
 
     @Column(nullable = false)

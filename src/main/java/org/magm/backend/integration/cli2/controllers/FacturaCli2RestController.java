@@ -44,7 +44,8 @@ public class FacturaCli2RestController extends BaseRestController {
     @PostMapping(value = "/nueva-factura")
     public ResponseEntity<?> load(@RequestBody FacturaCli2 factura) {
         try {
-            FacturaCli2 response=facturaCli2Business.add(factura);
+            FacturaCli2 response = facturaCli2Business.add(factura);
+            auditoriaBusiness.add(factura.getId(),getUserLogged().getUsername(),factura.getFechaEmision(),"ALTA");
             HttpHeaders responseHeaders=new HttpHeaders();
             responseHeaders.set("location",Constants.URL_PRODUCTS+"/"+response.getId());
             return new ResponseEntity<>( responseHeaders, HttpStatus.CREATED);
@@ -60,12 +61,17 @@ public class FacturaCli2RestController extends BaseRestController {
     public ResponseEntity<?> update(@RequestBody FacturaCli2 factura) {
         try {
             facturaCli2Business.update(factura);
+//            facturaCli2Business.delete(facturaCli2Business.load(factura.getNumero()).getId());
+
+            auditoriaBusiness.add(factura.getId(),getUserLogged().getUsername(),factura.getFechaEmision(),"MODIFICADA");
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (BusinessException e) {
             return new ResponseEntity<>(response.build(HttpStatus.INTERNAL_SERVER_ERROR, e, e.getMessage()),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(response.build(HttpStatus.NOT_FOUND, e, e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (FoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -160,11 +166,15 @@ public class FacturaCli2RestController extends BaseRestController {
     @DeleteMapping(value="/eliminar-factura/{numero}")
     public ResponseEntity<?> deleteByNumber(@PathVariable("numero") long numero){
         try {
+            FacturaCli2 factura = facturaCli2Business.load(numero);
             facturaCli2Business.deleteByNumero(numero);
+            auditoriaBusiness.add(factura.getId(),getUserLogged().getUsername(),factura.getFechaEmision(),"BAJA");
             return new ResponseEntity<>( HttpStatus.OK);
         } catch (BusinessException | NotFoundException e) {
             return new ResponseEntity<>(response.build(HttpStatus.INTERNAL_SERVER_ERROR, e, e.getMessage()),
                     HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (FoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
