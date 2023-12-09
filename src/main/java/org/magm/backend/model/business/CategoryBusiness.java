@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-
+//La clase CategoryBusiness en el paquete org.magm.backend.model.business implementa la interfaz ICategoryBusiness y proporciona la lógica de negocio relacionada con la entidad Category
+//En resumen, la clase CategoryBusiness encapsula la lógica de negocio para la gestión de categorías, interactuando con el repositorio correspondiente. Proporciona operaciones para cargar, listar, agregar, actualizar y eliminar categorías, gestionando adecuadamente las excepciones que puedan ocurrir durante estas operaciones.
 @Service
 @Slf4j
 public class CategoryBusiness implements ICategoryBusiness {

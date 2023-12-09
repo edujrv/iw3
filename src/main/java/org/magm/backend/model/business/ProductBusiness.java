@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-
+//La clase ProductBusiness en el paquete org.magm.backend.model.business es un componente de servicio (@Service) que implementa la interfaz IProductBusiness
+//n resumen, la clase ProductBusiness implementa la lógica de negocio relacionada con la entidad Product. Proporciona métodos para realizar operaciones como cargar, listar, agregar, actualizar y eliminar productos, manejando diferentes excepciones para casos específicos. Este componente de servicio se utiliza para encapsular la lógica de acceso a datos y proporciona una capa de abstracción entre la capa de controladores y la capa de persistencia.
 
 
 @Service

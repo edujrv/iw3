@@ -21,7 +21,39 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+/*
+* La clase ProductCli1RestController es un controlador de Spring MVC que maneja las operaciones relacionadas con los productos de la integración cli1. Aquí hay una descripción de la clase:
 
+Anotaciones:
+
+@Profile({"cli1","mysqldev"}): Esta anotación de perfil indica que este controlador está activo solo cuando se activa el perfil "cli1" o "mysqldev". Esto permite configurar diferentes conjuntos de controladores para diferentes perfiles de la aplicación.
+Extendido de BaseRestController:
+
+El controlador extiende la clase BaseRestController, que proporciona funcionalidades comunes relacionadas con la autenticación.
+Inyección de Dependencias:
+
+@Autowired IProductCli1Business productBusiness: Se inyecta una instancia de IProductCli1Business para manejar las operaciones comerciales relacionadas con los productos de cli1.
+@Autowired IStandartResponseBusiness response: Se inyecta una instancia de IStandartResponseBusiness para construir respuestas estandarizadas en caso de excepciones comerciales.
+Mapeo de Endpoints:
+
+@GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE): Mapea la URL relativa /integration/cli1/products para manejar solicitudes GET y devuelve la lista de productos.
+@GetMapping(value = "/{codCli1}", produces = MediaType.APPLICATION_JSON_VALUE): Mapea la URL relativa /integration/cli1/products/{codCli1} para manejar solicitudes GET y devuelve un producto específico según el código de cli1.
+@PostMapping(value = ""): Mapea la URL relativa /integration/cli1/products para manejar solicitudes POST y agrega un nuevo producto.
+@PostMapping(value = "/b2b"): Mapea la URL relativa /integration/cli1/products/b2b para manejar solicitudes POST y agrega un nuevo producto externo.
+Método list:
+
+Retorna la lista de productos cli1 en formato JSON.
+Método loadByCode:
+
+Obtiene y retorna un producto cli1 específico según el código proporcionado en la URL.
+Método add:
+
+Agrega un nuevo producto cli1 y retorna la ubicación del recurso creado en los encabezados de respuesta.
+Método addExternal:
+
+Agrega un nuevo producto externo y retorna la ubicación del recurso creado en los encabezados de respuesta.
+En general, este controlador maneja operaciones CRUD (Crear, Leer y Actualizar) relacionadas con los productos de la integración cli1.
+* */
 @Profile({"cli1","mysqldev"})
 @RestController
 @RequestMapping(Constants.URL_INTEGRATION_CLI1 + "/products")

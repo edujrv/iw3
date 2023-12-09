@@ -18,7 +18,28 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+//El controlador DetalleCli2RestController maneja las operaciones relacionadas con los detalles de las facturas en el contexto de la integración cli2. Aquí hay un resumen de los métodos definidos en este controlador:
+/*
+* Nuevo Detalle (/nuevo-detalle):
 
+Ruta: POST /detalles/nuevo-detalle
+Descripción: Agrega un nuevo detalle de factura.
+Parámetros de entrada: Detalle de factura (DetalleFacturaCli2).
+Respuestas:
+201 CREATED: Detalle de factura creado exitosamente.
+404 NOT FOUND: Si se encuentra un problema (por ejemplo, ya existe el detalle de factura).
+500 INTERNAL SERVER ERROR: Si hay un error general en la operación.
+Cargar Detalle (/{id}):
+
+Ruta: GET /detalles/{id}
+Descripción: Recupera un detalle de factura por su identificador.
+Parámetros de entrada: Identificador del detalle de factura.
+Respuestas:
+200 OK: Detalle de factura recuperado exitosamente.
+404 NOT FOUND: Si no se encuentra el detalle de factura.
+500 INTERNAL SERVER ERROR: Si hay un error general en la operación
+* */
+//Estos métodos proporcionan una interfaz para interactuar con la lógica de negocio relacionada con los detalles de facturas en el contexto de la integración cli2.
 @Profile({"cli2","mysqldev"})
 @RestController
 @RequestMapping(Constants.URL_DETALLES)

@@ -18,7 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
+//Este archivo SecurityConfiguration es una clase de configuración de Spring Security que define cómo se asegura la aplicación.
+//En resumen, esta clase configura la seguridad de la aplicación, permitiendo el acceso a ciertas rutas sin autenticación, asegurando todas las demás rutas y utilizando un filtro personalizado para la autorización basada en JWT. También configura CORS para permitir solicitudes desde cualquier origen.
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

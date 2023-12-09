@@ -26,7 +26,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+/*
+* La clase AuthRestController es un controlador Spring MVC que maneja las solicitudes relacionadas con la autenticación y generación de tokens JWT. A continuación, se describe la funcionalidad principal de este controlador:
 
+Anotaciones del Controlador:
+
+@RestController: Indica que la clase es un controlador de Spring y que cada método en la clase devuelve directamente un objeto serializado en lugar de una vista.
+Método loginExternalOnlyToken:
+
+@PostMapping(value = Constants.URL_LOGIN, produces = MediaType.TEXT_PLAIN_VALUE): Maneja las solicitudes POST a la URL definida en la constante Constants.URL_LOGIN y produce una respuesta en formato de texto plano.
+@RequestParam: Anotación para mapear parámetros de solicitud a los parámetros del método.
+value = "username": Nombre del parámetro de solicitud correspondiente al nombre de usuario.
+value = "password": Nombre del parámetro de solicitud correspondiente a la contraseña.
+value = "json": Nombre del parámetro de solicitud para indicar si se desea una respuesta en formato JSON.
+El método realiza la autenticación del usuario utilizando un AuthenticationManager personalizado (CustomAuthenticationManager).
+Si la autenticación es exitosa, se genera un token JWT.
+La respuesta puede ser un token JWT o los detalles del usuario en formato JSON, según el valor del parámetro "json".
+En caso de errores, se manejan excepciones y se devuelve la respuesta adecuada.
+Generación del Token JWT:
+
+Se utiliza la biblioteca Auth0 JWT para generar el token.
+El token incluye información como el nombre de usuario, el ID interno del usuario, los roles, el correo electrónico y la versión.
+El token tiene un tiempo de expiración definido por AuthConstants.EXPIRATION_TIME.
+Se firma el token con el algoritmo HMAC512 y la clave secreta definida en AuthConstants.SECRET.
+En resumen, este controlador maneja las solicitudes de inicio de sesión, autentica al usuario y genera un token JWT como respuesta. También ofrece la opción de devolver detalles del usuario en formato JSON si se especifica en los parámetros de solicitud.
+* */
 @RestController
 public class AuthRestController extends BaseRestController {
 
@@ -35,7 +59,8 @@ public class AuthRestController extends BaseRestController {
 
 	@PostMapping(value = Constants.URL_LOGIN, produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<?> loginExternalOnlyToken(@RequestParam(value = "username") String username,
-			@RequestParam(value = "password") String password, @RequestParam(value = "json", required = false, defaultValue = "false") String json) throws JsonProcessingException {
+			@RequestParam(value = "password") String password,
+			@RequestParam(value = "json", required = false, defaultValue = "false") String json) throws JsonProcessingException {
 		Authentication auth = null;
 		try {
 			auth = authManager.authenticate(((CustomAuthenticationManager) authManager).AuthWrap(username, password));

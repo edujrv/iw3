@@ -1,5 +1,6 @@
 package org.magm.backend.model.persistence;
-
+//La interfaz ProductRepository en el paquete org.magm.backend.model.persistence extiende JpaRepository y proporciona métodos para realizar operaciones de persistencia relacionadas con la entidad Product
+//En resumen, la interfaz ProductRepository proporciona métodos estándar de CRUD (Create, Read, Update, Delete) gracias a la extensión de JpaRepository, y además incluye métodos personalizados para realizar consultas nativas y actualizaciones relacionadas con la entidad Product. Este repositorio se utiliza para interactuar con la tabla "products" en la base de datos.
 import java.util.List;
 import java.util.Optional;
 

@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
+//La clase Cli1ScanConfig en el paquete org.magm.backend.config.profile es una configuración específica para el perfil cli1 de la aplicación Spring Boot.
+//n resumen, la clase Cli1ScanConfig se encarga de configurar la exploración de repositorios JPA y entidades JPA para el perfil de Spring "cli1", y excluye algunos paquetes específicos del escaneo.
 @Configuration
 //Repositorios
 @EnableJpaRepositories(basePackages = "org.magm.backend", 

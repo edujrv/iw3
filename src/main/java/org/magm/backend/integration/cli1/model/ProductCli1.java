@@ -1,5 +1,6 @@
 package org.magm.backend.integration.cli1.model;
-
+//La clase ProductCli1 es una entidad JPA que representa productos específicos del sistema cli1.
+//En resumen, esta clase representa productos específicos del sistema cli1 y extiende la funcionalidad básica de la clase Product. La relación de herencia está respaldada por una estrategia de clave primaria compartida.
 import javax.persistence.*;
 
 import org.magm.backend.model.Product;

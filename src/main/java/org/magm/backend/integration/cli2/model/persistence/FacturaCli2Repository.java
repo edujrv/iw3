@@ -12,7 +12,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-
+//La interfaz FacturaCli2Repository extiende JpaRepository y proporciona métodos para realizar operaciones de acceso a datos relacionadas con la entidad FacturaCli2
+//La interfaz extiende JpaRepository<FacturaCli2, Long>, lo que significa que hereda métodos de acceso a datos comunes de Spring Data JPA para la entidad FacturaCli2.
+//
+//Se definen métodos para buscar facturas por su código, número y anulada.
+//
+//Se definen métodos para eliminar facturas por su número, y para buscar facturas anuladas y no anuladas.
+//
+//Se utiliza la anotación @Query para definir consultas personalizadas. Por ejemplo, el método findAllV2 realiza una consulta nativa que selecciona todos los detalles de factura asociados a las facturas.
+//
+//Se definen métodos para anular y desanular facturas, y para obtener los identificadores de facturas asociadas a un producto específico.
+//
+//La anotación @Repository indica que esta interfaz es un componente de repositorio de Spring y permite la detección automática por parte del escáner de componentes de Spring.
 @Repository
 public interface FacturaCli2Repository  extends JpaRepository<FacturaCli2, Long>{
     public Optional<FacturaCli2> findOneByCodFacturaCli2(String codFacturaCli2);

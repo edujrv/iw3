@@ -15,7 +15,8 @@ import org.magm.backend.util.JsonUtiles;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-
+//La clase UserSerializer es un serializador personalizado (custom serializer) de Jackson para la clase User en el contexto de la autenticación
+//Este serializador personalizado agrega información adicional al objeto User al convertirlo a JSON, como los roles del usuario y un token de autenticación (JWT). Esta información adicional puede ser útil en el lado del cliente para gestionar la sesión del usuario.
 public class UserSerializer extends StdSerializer<User> {
 
 

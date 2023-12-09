@@ -1,5 +1,6 @@
 package org.magm.backend.util;
-
+//La clase StandartResponse en el paquete org.magm.backend.util es una clase de modelo que representa una respuesta estándar para la comunicación de la aplicación.
+//En resumen, la clase StandartResponse encapsula la información común que puede estar presente en las respuestas de la aplicación, como mensajes, excepciones y estados HTTP. La información de desarrollo (como el stack trace) se incluye o excluye según la configuración de devInfoEnabled.
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 

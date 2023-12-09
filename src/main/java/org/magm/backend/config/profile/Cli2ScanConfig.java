@@ -1,5 +1,6 @@
 package org.magm.backend.config.profile;
-
+//La clase Cli2ScanConfig en el paquete org.magm.backend.config.profile es otra configuración específica para el perfil cli2 de la aplicación Spring Boot.
+//En resumen, la clase Cli2ScanConfig se encarga de configurar la exploración de repositorios JPA y entidades JPA para el perfil de Spring "cli2", y excluye algunos paquetes específicos del escaneo, en este caso, los relacionados con cli1.
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

@@ -1,5 +1,6 @@
 package org.magm.backend.integration.cli1.model.business;
-
+//La interfaz IProductCli1Business define las operaciones de negocio relacionadas con la entidad ProductCli1
+//Esta interfaz proporciona una abstracción para la lógica de negocio relacionada con la gestión de productos en el contexto de la integración cli1. Implementar esta interfaz permite definir las operaciones específicas para interactuar con la entidad ProductCli1 y manejar excepciones personalizadas relacionadas con la lógica de negocio.
 import java.util.List;
 
 import org.magm.backend.integration.cli1.model.ProductCli1;

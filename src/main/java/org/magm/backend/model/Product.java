@@ -1,5 +1,6 @@
 package org.magm.backend.model;
-
+//La clase Product en el paquete org.magm.backend.model representa un producto en el sistema. Aquí está una descripción de la clase:
+//En resumen, la clase Product representa un producto en el sistema, con atributos como el nombre, el estado de stock, el precio y una relación con la categoría a la que pertenece. La estrategia de herencia utilizada es la de tipo "JOINED", lo que implica que la información se almacena en varias tablas relacionadas.
 import java.io.Serializable;
 
 import javax.persistence.Column;

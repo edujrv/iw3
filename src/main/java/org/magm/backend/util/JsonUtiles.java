@@ -8,7 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-
+//La clase JsonUtiles en el paquete org.magm.backend.util proporciona métodos utilitarios relacionados con el manejo de objetos JSON utilizando la biblioteca Jackson. Aquí hay una descripción de la clase:
+//En resumen, la clase JsonUtiles proporciona métodos utilitarios para trabajar con objetos JSON, incluyendo la configuración de ObjectMapper, la extracción de valores de diferentes tipos y la manipulación de cadenas y valores predeterminados.
 public final class JsonUtiles {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static ObjectMapper getObjectMapper(Class clazz, StdSerializer ser, String dateFormat) {

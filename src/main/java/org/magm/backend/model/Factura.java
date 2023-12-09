@@ -11,7 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+//La clase Factura en el paquete org.magm.backend.model representa una factura en el sistema
+//En resumen, la clase Factura representa una factura en el sistema, con atributos como el número de factura, su estado (anulada o no), fechas de emisión y vencimiento, el precio total y una lista de detalles de factura asociados. La estrategia de herencia utilizada es la de tipo "JOINED", lo que implica que la información se almacena en varias tablas relacionadas.
 @Entity
 @Table(name="facturas")
 @Inheritance(strategy = InheritanceType.JOINED)

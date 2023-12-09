@@ -17,7 +17,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+//La clase FacturaCli2Business es una implementación de la interfaz IFacturaCli2Business y define la lógica de negocio relacionada con las facturas en el contexto de CLI2.
+//Implementa la interfaz IFacturaCli2Business.
+//
+//Utiliza anotaciones de Spring como @Service y @Autowired para la inyección de dependencias.
+//
+//Define métodos para cargar, listar, agregar, actualizar y eliminar facturas.
+//
+//Maneja excepciones específicas de negocio (NotFoundException, FoundException y BusinessException).
+//
+//Contiene métodos para realizar operaciones específicas como anular o desanular facturas, obtener una lista de facturas no anuladas, etc.
+//
+//Se hace uso del logger (log) para registrar mensajes y errores.
 @Service
 @Slf4j
 public class FacturaCli2Business extends BaseRestController implements IFacturaCli2Business{

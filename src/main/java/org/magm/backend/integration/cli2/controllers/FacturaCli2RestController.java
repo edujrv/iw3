@@ -26,7 +26,88 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+/*
+* El controlador FacturaCli2RestController maneja las operaciones relacionadas con las facturas en el contexto de la integración cli2. Aquí hay un resumen de los métodos definidos en este controlador:
 
+Nueva Factura (/nueva-factura):
+
+Ruta: POST /facturas/nueva-factura
+Descripción: Agrega una nueva factura.
+Parámetros de entrada: Factura (FacturaCli2).
+Respuestas:
+201 CREATED: Factura creada exitosamente.
+404 NOT FOUND: Si se encuentra un problema (por ejemplo, ya existe la factura).
+500 INTERNAL SERVER ERROR: Si hay un error general en la operación.
+Modificar Factura (/modificar-factura):
+
+Ruta: PUT /facturas/modificar-factura
+Descripción: Modifica una factura existente.
+Parámetros de entrada: Factura (FacturaCli2).
+Respuestas:
+200 OK: Factura modificada exitosamente.
+404 NOT FOUND: Si la factura no se encuentra.
+500 INTERNAL SERVER ERROR: Si hay un error general en la operación.
+Anular Factura (/anular-factura/{id}):
+
+Ruta: PUT /facturas/anular-factura/{id}
+Descripción: Anula una factura existente por su identificador.
+Parámetros de entrada: Identificador de la factura.
+Respuestas:
+200 OK: Factura anulada exitosamente.
+404 NOT FOUND: Si la factura no se encuentra.
+500 INTERNAL SERVER ERROR: Si hay un error general en la operación.
+Desanular Factura (/desanular-factura/{id}):
+
+Ruta: PUT /facturas/desanular-factura/{id}
+Descripción: Desanula una factura existente por su identificador.
+Parámetros de entrada: Identificador de la factura.
+Respuestas:
+200 OK: Factura desanulada exitosamente.
+404 NOT FOUND: Si la factura no se encuentra.
+500 INTERNAL SERVER ERROR: Si hay un error general en la operación.
+Cargar Factura (/{numero}):
+
+Ruta: GET /facturas/{numero}
+Descripción: Recupera una factura por su número.
+Parámetros de entrada: Número de la factura.
+Respuestas:
+200 OK: Factura recuperada exitosamente.
+404 NOT FOUND: Si la factura no se encuentra.
+500 INTERNAL SERVER ERROR: Si hay un error general en la operación.
+Listar Todas las Facturas (/lista):
+
+Ruta: GET /facturas/lista
+Descripción: Recupera la lista de todas las facturas.
+Parámetros de entrada: Versión delgada de la factura (slim).
+Respuestas:
+200 OK: Lista de facturas recuperada exitosamente.
+404 NOT FOUND: Si no se encuentran facturas.
+500 INTERNAL SERVER ERROR: Si hay un error general en la operación.
+Listar Facturas No Anuladas (/lista-no-anulada):
+
+Ruta: GET /facturas/lista-no-anulada
+Descripción: Recupera la lista de facturas no anuladas.
+Respuestas:
+200 OK: Lista de facturas no anuladas recuperada exitosamente.
+500 INTERNAL SERVER ERROR: Si hay un error general en la operación.
+Eliminar Factura por Número (/eliminar-factura/{numero}):
+
+Ruta: DELETE /facturas/eliminar-factura/{numero}
+Descripción: Elimina una factura por su número.
+Parámetros de entrada: Número de la factura.
+Respuestas:
+200 OK: Factura eliminada exitosamente.
+404 NOT FOUND: Si la factura no se encuentra.
+500 INTERNAL SERVER ERROR: Si hay un error general en la operación.
+Listar ID de Facturas por Producto (/lista-id/{idProducto}):
+
+Ruta: GET /facturas/lista-id/{idProducto}
+Descripción: Recupera la lista de identificadores de facturas asociadas a un producto.
+Parámetros de entrada: Identificador del producto.
+Respuestas:
+200 OK: Lista de identificadores de facturas recuperada exitosamente.
+500 INTERNAL SERVER ERROR: Si hay un error general en la oper
+* */
 @Profile({"cli2","mysqldev"})
 @RestController
 @RequestMapping(Constants.URL_FACTURAS)

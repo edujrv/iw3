@@ -12,7 +12,11 @@ import org.magm.backend.util.JsonUtiles;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-
+//Este serializador está diseñado para convertir objetos FacturaCli2 en formato JSON según la versión 1 de la vista "delgada" (v1). Algunos puntos clave:
+//
+//Se implementa el método serialize para convertir el objeto FacturaCli2 en formato JSON.
+//Se escriben varios campos, como "id", "version", "numero", "code", "anulada", "fechaEmision", "fechaVencimiento", "price" y "cantidadDetalles".
+//El campo "cantidadDetalles" representa el número de detalles de factura.
 public class FacturaCli2SlimV1JsonSerializer extends StdSerializer<FacturaCli2>  {
     private static final long serialVersionUID = -3706328888880784297L;
 

@@ -1,4 +1,71 @@
 //
+
+/*
+* El código que proporcionaste está comentado y tiene algunos errores y fragmentos faltantes. Aquí tienes una versión corregida y descomentada del deserializador FacturaCli2JsonDeserializer:
+
+java
+Copy code
+package org.magm.backend.integration.cli2.model;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import org.magm.backend.integration.cli2.model.business.IDetalleFacturaCli2Business;
+import org.magm.backend.model.business.BusinessException;
+import org.magm.backend.model.business.NotFoundException;
+import org.magm.backend.util.JsonUtiles;
+
+import java.io.IOException;
+import java.util.Date;
+
+public class FacturaCli2JsonDeserializer extends StdDeserializer<FacturaCli2> {
+    private static final long serialVersionUID = -3891285352118964728L;
+
+    private IDetalleFacturaCli2Business detalleFacturaBusiness;
+
+    public FacturaCli2JsonDeserializer(Class<?> vc, IDetalleFacturaCli2Business detalleFacturaBusiness) {
+        super(vc);
+        this.detalleFacturaBusiness = detalleFacturaBusiness;
+    }
+
+    @Override
+    public FacturaCli2 deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+        FacturaCli2 facturaCli2 = new FacturaCli2();
+        JsonNode node = jp.getCodec().readTree(jp);
+
+        String code = JsonUtiles.getString(node, "factura_code,code_factura,code".split(","),
+                System.currentTimeMillis() + "");
+        long numero = JsonUtiles.getLong(node, "numero,factura_numero,numero_factura,num".split(","), 0);
+        boolean anulada = JsonUtiles.getBoolean(node, "anulada,is_anulada".split(","), false);
+        Date fechaemi = JsonUtiles.getDate(node, "emision,fechaemi,fe".split(","), null);
+        Date fechaven = JsonUtiles.getDate(node, "vencimiento,fechaven,fv".split(","), null);
+        double price = JsonUtiles.getDouble(node, "factura_price,price_factura,price".split(","), 0);
+
+        facturaCli2.setCodFacturaCli2(code);
+        facturaCli2.setNumero(numero);
+        facturaCli2.setAnulada(anulada);
+        facturaCli2.setFechaEmision(fechaemi);
+        facturaCli2.setFechaVencimiento(fechaven);
+        facturaCli2.setPrice(price);
+
+        long detallefactura = JsonUtiles.getLong(node, "detallefactura,detalle_factura,factura_detalle".split(","), 0);
+        if (detallefactura != 0) {
+            try {
+                facturaCli2.setDetallesFactura(detalleFacturaBusiness.load(detallefactura));
+            } catch (NotFoundException | BusinessException e) {
+                // Manejar la excepción según tus necesidades
+            }
+        }
+
+        return facturaCli2;
+    }
+}
+Corregí los errores y descomenté el código. Ten en cuenta que hay una línea comentada que utiliza JsonUtiles.getObjectMapper(Date.class, new StdSerializer );, pero esta línea está incompleta y podría ser necesario ajustarla según tus necesidades específicas. Si tienes más preguntas o necesitas más ayuda, estaré encantado de ayudarte.
+* */
+
+
+
 //package org.magm.backend.integration.cli2.model;
 //
 //import com.fasterxml.jackson.core.JacksonException;

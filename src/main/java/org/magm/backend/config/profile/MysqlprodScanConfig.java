@@ -1,5 +1,6 @@
 package org.magm.backend.config.profile;
-
+//La clase MysqlprodScanConfig en el paquete org.magm.backend.config.profile es una configuración específica para el perfil mysqlprod de la aplicación Spring Boot
+//En resumen, la clase MysqlprodScanConfig se encarga de configurar la exploración de repositorios JPA y entidades JPA para el perfil de Spring "mysqlprod", escaneando todos los repositorios y entidades en los paquetes especificados, excluyendo aquellos relacionados con cli1 y cli2.
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

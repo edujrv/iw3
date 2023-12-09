@@ -21,7 +21,27 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+/*
+*La clase ProductRestController es un controlador de Spring que gestiona las operaciones relacionadas con los productos y categorías. Aquí hay una descripción de los métodos definidos en esta clase:
 
+Operaciones sobre Productos:
+
+list: Recupera la lista de todos los productos.
+load: Recupera un producto por su ID o nombre.
+add: Agrega un nuevo producto.
+update: Actualiza la información de un producto existente.
+delete: Elimina un producto por su ID.
+Operaciones sobre Categorías:
+
+listCategories: Recupera la lista de todas las categorías.
+loadCategory: Recupera una categoría por su ID.
+addCategory: Agrega una nueva categoría.
+updateCategory: Actualiza la información de una categoría existente.
+deleteCategory: Elimina una categoría por su ID.
+Para cada operación, se manejan las excepciones de negocio (BusinessException, NotFoundException, FoundException) y se devuelven las respuestas adecuadas con el uso de ResponseEntity. Además, se utilizan las constantes definidas en la clase Constants para construir las rutas URL.
+
+Este controlador sigue el enfoque RESTful al utilizar los métodos HTTP adecuados (GET, POST, PUT, DELETE) y manejar los recursos de manera jerárquica (productos y categorías). Además, utiliza anotaciones de Spring Security, como @PreAuthorize, para aplicar autorización basada en roles a los diferentes puntos finales.
+* */
 @RestController
 @RequestMapping(Constants.URL_PRODUCTS)
 public class ProductRestController extends BaseRestController {

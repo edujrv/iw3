@@ -7,7 +7,15 @@ import org.magm.backend.model.business.FoundException;
 import org.magm.backend.model.business.NotFoundException;
 
 import java.util.List;
+/*
+*Define métodos para cargar, listar, agregar, actualizar y eliminar facturas, así como para anular y desanular facturas por su identificador.
 
+Proporciona operaciones para listar facturas no anuladas, cargar todas las facturas, cargar una factura por su identificador, eliminar facturas por su número, listar vistas slim de facturas, listar vistas V2 de facturas y obtener una vista V2 de factura por su número.
+
+Utiliza excepciones específicas de negocio (NotFoundException, FoundException y BusinessException) para manejar situaciones excepcionales.
+
+Esta interfaz ofrece una abstracción de alto nivel para las operaciones relacionadas con las facturas en el contexto de CLI2
+* */
 
 public interface IFacturaCli2Business {
     FacturaCli2 load(long id) throws NotFoundException, BusinessException;

@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
+//La clase AuditoriaBusiness en el paquete org.magm.backend.model.business es parte del componente de negocios relacionado con la auditoría en la aplicación.
+//En resumen, la clase AuditoriaBusiness proporciona métodos para cargar auditorías por ID, obtener una lista de auditorías asociadas a un usuario y agregar nuevas auditorías a la base de datos. Además, maneja excepciones específicas de negocio como NotFoundException, FoundException y BusinessException.
 @Service
 @Slf4j
 public class AuditoriaBusiness implements IAuditoriaBusiness{

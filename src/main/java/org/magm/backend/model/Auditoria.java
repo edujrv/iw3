@@ -1,5 +1,6 @@
 package org.magm.backend.model;
-
+//La clase Auditoria en el paquete org.magm.backend.model representa una entidad de auditoría en el sistema. Aquí está una descripción de la clase:
+//En resumen, la clase Auditoria representa una entidad de auditoría en el sistema, con atributos como el ID de la factura, el nombre del usuario, la operación realizada y la fecha de la auditoría. Los objetos de esta clase se almacenan en la tabla "auditoria" de la base de datos.
 import lombok.*;
 
 import javax.persistence.*;

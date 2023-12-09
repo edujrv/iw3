@@ -27,7 +27,45 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+//La clase AuthorizationRestController es un controlador Spring MVC que maneja las solicitudes relacionadas con la autorización y la seguridad en la aplicación
+/*
+* Anotaciones del Controlador:
 
+@RestController: Indica que la clase es un controlador de Spring y que cada método en la clase devuelve directamente un objeto serializado en lugar de una vista.
+@RequestMapping(Constants.URL_AUTHORIZATION): Define la URL base para todas las solicitudes manejadas por este controlador.
+Método onlyAdmin:
+
+@PreAuthorize("hasRole('ROLE_ADMIN')"): Especifica que solo los usuarios con el rol "ROLE_ADMIN" pueden acceder a este método.
+@GetMapping("/admin"): Maneja las solicitudes GET a la URL "/admin" y devuelve un mensaje con el código de estado OK.
+Método auditoria:
+
+@PreAuthorize("hasRole('ROLE_VIEW')"): Permite el acceso solo a los usuarios con el rol "ROLE_VIEW".
+@GetMapping("/auditoria"): Maneja las solicitudes GET a la URL "/auditoria" y devuelve una lista de auditorías en formato JSON. Usa un objeto AuditSerializer para personalizar la serialización de las auditorías.
+Método onlyUser:
+
+@PreAuthorize("hasRole('ROLE_USER')"): Permite el acceso solo a los usuarios con el rol "ROLE_USER".
+@GetMapping("/user"): Maneja las solicitudes GET a la URL "/user" y devuelve un mensaje con el código de estado OK.
+Método rolUserOArdmin:
+
+@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"): Permite el acceso a usuarios con el rol "ROLE_USER" o "ROLE_ADMIN".
+@GetMapping("/user-or-admin"): Maneja las solicitudes GET a la URL "/user-or-admin" y devuelve un mensaje con el código de estado OK.
+Método myRols:
+
+@PreAuthorize("#username == authentication.principal.username"): Permite el acceso solo si el parámetro "username" coincide con el nombre de usuario autenticado.
+@GetMapping("/my-rols"): Maneja las solicitudes GET a la URL "/my-rols" y devuelve los roles del usuario autenticado.
+Método variable:
+
+@GetMapping("/variable"): Maneja las solicitudes GET a la URL "/variable" y devuelve un mensaje basado en si el usuario autenticado tiene el rol "ROLE_ADMIN".
+Método fullData:
+
+@PostAuthorize("returnObject.username == #username"): Permite el acceso solo si el nombre de usuario devuelto por el método coincide con el parámetro "username".
+@GetMapping("/full-data"): Maneja las solicitudes GET a la URL "/full-data" y devuelve los datos completos del usuario autenticado.
+Método selfFilter:
+
+@PostFilter("filterObject != authentication.principal.username"): Filtra la lista de usuarios para excluir al usuario autenticado.
+@GetMapping("/self-filter"): Maneja las solicitudes GET a la URL "/self-filter" y devuelve una lista filtrada de nombres de usuario.
+* */
+//Este controlador utiliza anotaciones de seguridad de Spring, como @PreAuthorize y @PostAuthorize, para controlar el acceso a diferentes recursos y personalizar la lógica de autorización. También interactúa con servicios de negocio y utiliza anotaciones como @Autowired para inyectar dependencias
 @RestController
 @RequestMapping(Constants.URL_AUTHORIZATION)
 public class AuthorizationRestController extends BaseRestController {

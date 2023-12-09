@@ -1,5 +1,6 @@
 package org.magm.backend;
-
+//La clase AppApplication es la clase principal de la aplicación Spring Boot.
+//En resumen, la clase AppApplication es la entrada principal de la aplicación Spring Boot, y su método run muestra información sobre el perfil activo en el registro. Además, contiene comentarios sobre consultas que podrían ser utilizadas para interactuar con el repositorio ProductRepository, pero actualmente, estas están comentadas.
 import org.magm.backend.model.persistence.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

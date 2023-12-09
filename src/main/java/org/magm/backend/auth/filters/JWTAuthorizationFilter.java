@@ -30,7 +30,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-
+//La clase JWTAuthorizationFilter extiende BasicAuthenticationFilter y se utiliza para realizar la autorización basada en JWT (JSON Web Token).
+	//El filtro se encarga de extraer el token de la solicitud, verificar su validez y configurar la autenticación en el contexto de seguridad de Spring. La información del usuario, como el nombre de usuario, los roles y otros atributos, se extraen del token JWT y se utilizan para construir el objeto de autenticación. Si no se encuentra un token válido, el filtro permite que la solicitud continúe sin autenticación.
+//
+//El logger (log) se utiliza para imprimir información de depuración relacionada con el token JWT recibido, como el usuario logueado, los roles y la versión del token.
 	public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
 
 		super(authenticationManager);

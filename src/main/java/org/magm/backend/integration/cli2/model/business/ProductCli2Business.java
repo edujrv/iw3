@@ -16,7 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+/*
+*La clase utiliza anotaciones de Spring, como @Service para indicar que es un componente de servicio y @Autowired para la inyección de dependencias.
 
+Implementa los métodos definidos en la interfaz IProductCli2Business para realizar operaciones relacionadas con los productos.
+
+Utiliza un repositorio (ProductCli2Respository) para acceder a los datos de los productos.
+
+La anotación @Slf4j agrega un logger para facilitar la generación de registros.
+* */
 @Service
 @Slf4j
 public class ProductCli2Business implements IProductCli2Business {

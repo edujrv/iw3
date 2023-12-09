@@ -13,7 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+//La clase DetalleFacturaCli2Business es una implementación de la interfaz IDetalleFacturaCli2Business y define la lógica de negocio relacionada con los detalles de factura en el contexto de CLI2
+//Implementa la interfaz IDetalleFacturaCli2Business.
+//
+//Utiliza anotaciones de Spring como @Service y @Autowired para la inyección de dependencias.
+//
+//Define métodos para cargar y agregar detalles de factura.
+//
+//Maneja excepciones específicas de negocio (NotFoundException, FoundException y BusinessException).
+//
+//Se hace uso del logger (log) para registrar mensajes y errores.
 @Service
 @Slf4j
 public class DetalleFacturaCli2Business implements IDetalleFacturaCli2Business{

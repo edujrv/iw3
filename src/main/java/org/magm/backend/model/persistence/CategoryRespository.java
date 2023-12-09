@@ -1,5 +1,6 @@
 package org.magm.backend.model.persistence;
-
+//La interfaz CategoryRespository en el paquete org.magm.backend.model.persistence extiende JpaRepository y proporciona métodos para realizar operaciones de persistencia relacionadas con la entidad Category
+//En resumen, la interfaz CategoryRespository proporciona métodos estándar de CRUD (Create, Read, Update, Delete) gracias a la extensión de JpaRepository, y además incluye un método personalizado para buscar una categoría por su nombre utilizando convenciones de Spring Data JPA. Este repositorio se utiliza para interactuar con la tabla "categories" en la base de datos.
 import java.util.Optional;
 
 import org.magm.backend.model.Category;
